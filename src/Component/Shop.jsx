@@ -12,6 +12,9 @@ const Shop = () => {
         addToDb(product.id);
     }
     useEffect(()=>{
+        fetch('products.json').then(res=>res.json()).then(data=>setProducts(data))
+    },[])
+    useEffect(()=>{
         const storedCard=getShoppingCart()
         const savedCart = [];
         //get id
@@ -25,9 +28,7 @@ const Shop = () => {
         }
         setCart(savedCart)
     },[products])
-    useEffect(()=>{
-        fetch('products.json').then(res=>res.json()).then(data=>setProducts(data))
-    },[])
+
     return (
         <div className={'grid grid-cols-4 p-10'}>
             <div className={'col-span-3 w-full px-20'}>
@@ -42,7 +43,7 @@ const Shop = () => {
                 </div>
             </div>
             <div className={'bg-[#FFE0B3] w-full '}>
-                <Cart cart ={cart}></Cart>
+                <Cart checkOutButton={false} cart ={cart}></Cart>
             </div>
         </div>
     );
